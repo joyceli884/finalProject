@@ -1,0 +1,36 @@
+---
+title: "finalprojectsrisalaries"
+author: "joyce-sri-frank"
+date: "17/06/2021"
+output: html_document
+---
+```{r}
+library(tidyverse)
+library(janitor)
+```
+
+
+```{r}
+x <- read.csv(file = "2020_state.xls - 2020_state.csv", skip = 14) %>% 
+clean_names() %>% 
+slice(2:38) %>% 
+select(government_function, x_whole_dollars) 
+
+arrange(x, x_whole_dollars) %>%
+ggplot(mapping = aes(x = fct_reorder(government_function, x_whole_dollars), y = x_whole_dollars, fill = x_whole_dollars), height = 2000) +
+  geom_col(alpha = 0.1, show.legend = FALSE) +
+  labs(title = "Total Dollar Amount per Government Department",
+       subtitle = "Healthcare is the Most Expensive",
+       position = "dodge") +
+  theme(axis.text.x = element_text(angle = 40, hjust = 1)) +
+scale_y_discrete(expand = waiver())
+
+
+
+
+```
+
+```{r}
+x 
+```
+
